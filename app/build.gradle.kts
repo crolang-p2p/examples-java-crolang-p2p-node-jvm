@@ -31,3 +31,5 @@ fun registerExampleRunTask(exampleN: String, node: String) {
 registerExampleRunTask("1", "Alice")
 registerExampleRunTask("1", "Bob")
 registerExampleRunTask("2", "Alice")
+registerExampleRunTask("3", "Alice")
+registerExampleRunTask("3", "Bob")
