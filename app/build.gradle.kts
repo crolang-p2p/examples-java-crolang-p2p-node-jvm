@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.crolang-p2p:crolang-p2p-node-jvm:0.1.7-alpha")
+    implementation("io.github.crolang-p2p:crolang-p2p-node-jvm:0.1.8-alpha")
     implementation("com.google.code.gson:gson:2.10.1")
 }
 
@@ -33,3 +33,5 @@ registerExampleRunTask("1", "Bob")
 registerExampleRunTask("2", "Alice")
 registerExampleRunTask("3", "Alice")
 registerExampleRunTask("3", "Bob")
+registerExampleRunTask("5", "Alice")
+registerExampleRunTask("5", "Bob")
