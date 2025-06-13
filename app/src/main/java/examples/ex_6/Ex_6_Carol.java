@@ -3,7 +3,7 @@ package examples.ex_6;
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.IncomingCrolangNodesCallbacks;
-import org.crolangP2P.OnNewMsgHandlersBuilder;
+import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 
 public class Ex_6_Carol {
@@ -12,10 +12,8 @@ public class Ex_6_Carol {
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.CAROL_ID);
 
         IncomingCrolangNodesCallbacks callbacks = new IncomingCrolangNodesCallbacks.Builder()
-            .onNewMsg(OnNewMsgHandlersBuilder.createNew()
-                .add("GREETINGS_CHANNEL", (node, msg) -> {
-                    System.out.println("Received a message on GREETINGS_CHANNEL from Node " + node.getId() + ": " + msg);
-                })
+            .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
+                .add("GREETINGS_CHANNEL", (node, msg) -> System.out.println("Received a message on GREETINGS_CHANNEL from Node " + node.getId() + ": " + msg))
                 .build()
             ).build();
 

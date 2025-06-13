@@ -3,7 +3,7 @@ package examples.ex_7;
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.IncomingCrolangNodesCallbacks;
-import org.crolangP2P.OnNewMsgHandlersBuilder;
+import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 
 public class Ex_7_Bob {
@@ -20,7 +20,7 @@ public class Ex_7_Bob {
                     node.send("COUNT_CHANNEL", "0");
                 })
                 .onDisconnection(id -> System.out.println("Disconnected from Node " + id))
-                .onNewMsg(OnNewMsgHandlersBuilder.createNew()
+                .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
                         .add("COUNT_CHANNEL", (node, msg) -> {
                             System.out.println("[COUNT_CHANNEL][" + node.getId() + "]: " + msg);
                             node.send("COUNT_CHANNEL", Integer.toString(Integer.parseInt(msg) + 1));

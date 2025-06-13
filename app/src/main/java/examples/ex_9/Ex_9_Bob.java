@@ -6,14 +6,14 @@ import org.crolangP2P.IncomingCrolangNodesCallbacks;
 import org.crolangP2P.SyncCrolangNodeCallbacks;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
-import org.crolangP2P.OnNewMsgHandlersBuilder;
+import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 
 public class Ex_9_Bob {
     public static void main(String[] args) throws ConnectToBrokerException {
         CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.BOB_ID);
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
 
-        var onNewMsgHandlers = OnNewMsgHandlersBuilder.createNew()
+        var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
             .add("CONNECT_TO_CAROL", (node, msg) -> {
                 System.out.println("[CONNECT_TO_CAROL][" + node.getId() + "]");
                 System.out.println("Connecting to Node " + Constants.CAROL_ID);
@@ -33,7 +33,7 @@ public class Ex_9_Bob {
 
     private static void connectToCarol() {
         try {
-            var onNewMsgHandlers = OnNewMsgHandlersBuilder.createNew()
+            var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
                 .add("REDIRECT_TO_ALICE", (node, msg) -> {
                     System.out.println("[REDIRECT_TO_ALICE][" + node.getId() + "]: " + msg);
                     CrolangP2P.Java.getConnectedNode(Constants.ALICE_ID).ifPresent(aliceNode -> {

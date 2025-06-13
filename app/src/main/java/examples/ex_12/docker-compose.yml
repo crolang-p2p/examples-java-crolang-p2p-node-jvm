@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  broker:
+    image: crolangp2p/broker:latest
+    container_name: crolangp2p-broker
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - NODES_AUTHENTICATION_WEBHOOK_URL=http://auth-extension:8081/authenticate-node
+  auth-extension:
+    image: crolangp2p/examples-crolang-p2p-authentication-extension:latest
+    container_name: crolangp2p-auth-extension
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
