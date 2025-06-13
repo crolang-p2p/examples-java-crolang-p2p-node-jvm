@@ -3,4 +3,3 @@ plugins {
 }
 
 rootProject.name = "examples-java-crolang-p2p-node-jvm"
-include("app")
