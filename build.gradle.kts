@@ -28,11 +28,23 @@ fun registerExampleRunTask(exampleN: String, node: String) {
     }
 }
 
+fun registerSubExampleRunTask(exampleN: String, exampleLetter: String, node: String) {
+    tasks.register<JavaExec>("runEx${exampleN}${exampleLetter}${node}") {
+        group = "application"
+        classpath = sourceSets["main"].runtimeClasspath
+        mainClass.set("ex_${exampleN}.Ex_${exampleN}_${exampleLetter}_${node}")
+    }
+}
+
 registerExampleRunTask("1", "Alice")
 registerExampleRunTask("1", "Bob")
 registerExampleRunTask("2", "Alice")
 registerExampleRunTask("3", "Alice")
 registerExampleRunTask("3", "Bob")
+registerSubExampleRunTask("4", "A", "Alice")
+registerSubExampleRunTask("4", "B", "Alice")
+registerSubExampleRunTask("4", "C", "Alice")
+registerSubExampleRunTask("4", "D", "Alice")
 registerExampleRunTask("5", "Alice")
 registerExampleRunTask("5", "Bob")
 registerExampleRunTask("6", "Alice")
