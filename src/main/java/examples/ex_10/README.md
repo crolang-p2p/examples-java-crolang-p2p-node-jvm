@@ -1,7 +1,4 @@
 # Example 10: Sending Large Amount of Data over P2P
-
-> **Note:** This example demonstrates the usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -9,8 +6,6 @@
 - [Example Overview](#example-overview)
 - [Expected Output](#expected-output)
 - [Running the Example](#running-the-example)
-  - [Requirements](#requirements)
-  - [Execution Steps](#execution-steps)
 
 ## Learning Objectives
 
@@ -22,10 +17,10 @@ This example shows how:
 
 ## Involved Files
 
-- `Ex_10_Alice.java`: Alice reads a ~100MB text file and repeats its content 10 times to simulate sending ~1GB of data to Bob over P2P.
-- `Ex_10_Bob.java`: Bob receives the large message and prints its size.
-- `Constants.java`: Common constants (IDs, broker address).
-- `large_file.txt`: Example file containing ~100MB of text (due to GitHub limitations, files larger than 100MB cannot be included).
+- Ex_10_Alice.java: Alice reads a ~100MB text file and repeats its content 10 times to simulate sending ~1GB of data to Bob over P2P.
+- Ex_10_Bob.java: Bob receives the large message and prints its size.
+- Constants.java: Common constants (IDs, broker address).
+- large_file.txt: Example file containing ~100MB of text (due to GitHub limitations, files larger than 100MB cannot be included).
 
 ## Example Overview
 
@@ -54,40 +49,29 @@ Bob: Received 997865700 bytes of data on LARGE_DATA_TRANSFER from Node Alice
 
 This demonstrates that CrolangP2P can handle the transfer of very large messages, overcoming the typical size limits of WebRTC. However, the actual limit is determined by the available memory on your machine.
 
-## Running the Example
-
+## Running the example
 ### Requirements
+- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
-- Java 11 or higher
-- Crolang Broker running
-- `large_file.txt` (~100MB) present in the resources directory
+### Execution steps
+1. [Start Node Bob](#1-start-node-bob)
+2. [Start Node Alice](#2-start-node-alice)
 
-### Execution Steps
+---
 
-1. **Start the CrolangP2P Broker**
+#### 1: Start Node Bob
 
-   You can start the Broker using either Docker or Node.js:
+In the project root, run:
 
-   **A. Using Docker:**
-   ```sh
-   docker run --rm --name CrolangP2PBroker -p 8080:8080 crolangp2p/broker
-   ```
+```sh
+./gradlew runEx10Bob
+```
 
-   **B. Using Node.js:**
-   ```sh
-   git clone https://github.com/crolang-p2p/crolang-p2p-broker.git
-   cd crolang-p2p-broker
-   npm install
-   npm run build
-   npm start
-   ```
+#### 2: Start Node Alice
 
-2. **Start Node Bob**
-   ```sh
-   ./gradlew runEx10Bob
-   ```
+In a separate terminal, run:
 
-3. **Start Node Alice**
-   ```sh
-   ./gradlew runEx10Alice
-   ```
+```sh
+./gradlew runEx10Alice
+```

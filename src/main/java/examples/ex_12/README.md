@@ -1,13 +1,10 @@
 # Example 12: Authenticating to the Broker
-
-> **Note:** This example demonstrates advanced customization of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library.
-
 ## Table of Contents
 - [Learning Objectives](#learning-objectives)
 - [Involved Files](#involved-files)
 - [Example Overview](#example-overview)
 - [How Authentication Works](#how-authentication-works)
-- [Running the Example (Docker Compose)](#running-the-example-docker-compose)
+- [Running the Example](#running-the-example)
 - [References](#references)
 
 ## Learning Objectives
@@ -16,9 +13,9 @@
 - See how to run a multi-service CrolangP2P system with authentication using Docker Compose.
 
 ## Involved Files
-- `Ex_12_Alice.java`: Example node that connects to the broker, sending authentication data.
-- `docker-compose.yml`: Defines and launches both the broker and authentication extension services.
-- [`server.js`](https://github.com/crolang-p2p/examples-crolang-p2p-authentication-extension/blob/main/server.js): The authentication extension server implementation.
+- Ex_12_Alice.java: Example node that connects to the broker, sending authentication data.
+- docker-compose.yml: Defines and launches both the broker and authentication extension services.
+- [server.js](https://github.com/crolang-p2p/examples-crolang-p2p-authentication-extension/blob/main/server.js): The authentication extension server implementation.
 
 ## Example Overview
 This example shows how to:
@@ -42,7 +39,7 @@ This example shows how to:
 > **How to setup extensions:**
 > For more details on how to configure and link extensions to the broker, see the [CrolangP2P Broker documentation](https://github.com/crolang-p2p/crolang-p2p-broker). This example assumes the broker is already configured to use the authentication extension via the `NODES_AUTHENTICATION_WEBHOOK_URL` environment variable in the provided `docker-compose.yml`.
 
-## Running the Example (Docker Compose)
+## Running the Example
 
 ### Prerequisites
 - Java 11 or higher

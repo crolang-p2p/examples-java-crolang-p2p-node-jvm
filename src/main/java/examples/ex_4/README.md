@@ -1,7 +1,4 @@
 # Example 4: Different ways of establishing P2P connections
-
-> **Note:** This example demonstrates the usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -14,7 +11,7 @@
     - [4B: Multiple nodes, synchronous](#4b-multiple-nodes-synchronous)
     - [4C: Single node, asynchronous](#4c-single-node-asynchronous)
     - [4D: Multiple nodes, asynchronous](#4d-multiple-nodes-asynchronous)
-- [How to run the examples](#how-to-run-the-examples)
+- [Running the examples](#running-the-examples)
 
 ## Learning Objectives
 
@@ -78,34 +75,20 @@ Alice initiates a non-blocking connection to Bob. The result is handled via call
 ### 4D: Multiple nodes, asynchronous
 Alice initiates non-blocking connections to both Bob and Carol in parallel. Each connection's result is handled independently via callbacks. This is useful for scalable or event-driven applications where you want to manage multiple connections concurrently.
 
-## How to Run the Examples
-
+## Running the examples
 ### Requirements
-- Java 11 or higher
-- Crolang Broker running (see previous examples for instructions)
+- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
-### Steps
+### Execution steps
 
-1. **Start the CrolangP2P Broker**
-    - Using Docker:
-      ```sh
-      docker run --rm --name CrolangP2PBroker -p 8080:8080 crolangp2p/broker
-      ```
-    - Using Node.js:
-      ```sh
-      git clone https://github.com/crolang-p2p/crolang-p2p-broker.git
-      cd crolang-p2p-broker
-      npm install
-      npm run build
-      npm start
-      ```
-2. **Start Bob and Carol**
+1. **Start Bob and Carol**
     - In two separate terminals, from the root of the example project, run:
       ```sh
       ./gradlew runEx4Bob
       ./gradlew runEx4Carol
       ```
-3. **Start Alice for the desired sub-example**
+2. **Start Alice for the desired sub-example**
     - In a new terminal, from the root of the example project, run one of:
       ```sh
       ./gradlew runEx4AAlice

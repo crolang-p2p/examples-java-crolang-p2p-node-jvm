@@ -1,7 +1,4 @@
 # Example 9: Nodes Allowing Incoming Connections and Initiating New Connections Simultaneously
-
-> **Note:** This example demonstrates the usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -9,8 +6,6 @@
 - [Example Overview](#example-overview)
 - [Expected Output](#expected-output)
 - [Running the Example](#running-the-example)
-  - [Requirements](#requirements)
-  - [Execution Steps](#execution-steps)
 
 ## Learning Objectives
 
@@ -20,10 +15,10 @@ This example demonstrates that:
 
 ## Involved Files
 
-- `Ex_9_Alice.java`: Alice connects to Bob and requests a connection to Carol.
-- `Ex_9_Bob.java`: Bob allows incoming connections and, upon request, initiates a new connection to Carol.
-- `Ex_9_Carol.java`: Carol allows incoming connections and responds to messages.
-- `Constants.java`: Common constants (IDs, broker address).
+- Ex_9_Alice.java: Alice connects to Bob and requests a connection to Carol.
+- Ex_9_Bob.java: Bob allows incoming connections and, upon request, initiates a new connection to Carol.
+- Ex_9_Carol.java: Carol allows incoming connections and responds to messages.
+- Constants.java: Common constants (IDs, broker address).
 
 ## Example Overview
 
@@ -53,44 +48,20 @@ Alice: [REDIRECT_TO_ALICE][Bob]: Hello Alice, I'm Node Carol, this message was r
 
 This demonstrates that all nodes can act as both initiators and receivers of P2P connections, highlighting the peer-to-peer nature of the framework.
 
-## Running the Example
-
+## Running the example
 ### Requirements
+- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
-- Java 11 or higher
-- Crolang Broker running
+### Execution steps
 
-### Execution Steps
-
-1. **Start the CrolangP2P Broker**
-
-   You can start the Broker using either Docker or Node.js:
-
-   **A. Using Docker:**
-   ```sh
-   docker run --rm --name CrolangP2PBroker -p 8080:8080 crolangp2p/broker
-   ```
-
-   **B. Using Node.js:**
-   ```sh
-   git clone https://github.com/crolang-p2p/crolang-p2p-broker.git
-   cd crolang-p2p-broker
-   npm install
-   npm run build
-   npm start
-   ```
-
-2. **Start Node Carol**
-   ```sh
-   ./gradlew runEx9Carol
-   ```
-
-3. **Start Node Bob**
-   ```sh
-   ./gradlew runEx9Bob
-   ```
-
-4. **Start Node Alice**
+1. **Start Bob and Carol**
+    - In two separate terminals, from the root of the example project, run:
+      ```sh
+      ./gradlew runEx9Bob
+      ./gradlew runEx9Carol
+      ```
+2. **In a separate terminal, run**:
    ```sh
    ./gradlew runEx9Alice
    ```

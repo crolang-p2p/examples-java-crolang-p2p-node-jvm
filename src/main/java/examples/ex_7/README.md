@@ -1,7 +1,4 @@
 # Example 7: Disconnecting from the Broker
-
-> **Note:** This example demonstrates the usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library in Java.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -9,8 +6,6 @@
 - [Example Overview](#example-overview)
 - [Expected Output](#expected-output)
 - [Running the example](#running-the-example)
-  - [Requirements](#requirements)
-  - [Execution steps](#execution-steps)
 
 ## Learning Objectives
 
@@ -20,9 +15,9 @@ This example shows how to:
 
 ## Involved Files
 
-- [`Ex_7_Alice.java`](./Ex_7_Alice.java): Alice's logic to establish the P2P connection, disconnect from the Broker, and continue communicating with Bob.
-- [`Ex_7_Bob.java`](./Ex_7_Bob.java): Bob's logic to receive messages and reply to Alice.
-- [`../Constants.java`](../Constants.java): Common constants (IDs, broker address).
+- Ex_7_Alice.java: Alice's logic to establish the P2P connection, disconnect from the Broker, and continue communicating with Bob.
+- Ex_7_Bob.java: Bob's logic to receive messages and reply to Alice.
+- Constants.java: Common constants (IDs, broker address).
 
 ## Example Overview
 
@@ -59,18 +54,28 @@ Disconnected from Node Alice
 This demonstrates that after both nodes disconnect from the Broker, they continue to exchange messages over the P2P channel until the counter threshold is reached and the P2P connection is closed.
 
 ## Running the example
-
 ### Requirements
-- Java 11 or higher
-- Crolang Broker running
+- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
 ### Execution steps
-1. Run the CrolangP2P Broker.
-2. In the project root, run:
-   ```sh
-   ./gradlew runEx7Bob
-   ```
-3. In a separate terminal, run:
-   ```sh
-   ./gradlew runEx7Alice
-   ```
+1. [Start Node Bob](#1-start-node-bob)
+2. [Start Node Alice](#2-start-node-alice)
+
+---
+
+#### 1: Start Node Bob
+
+In the project root, run:
+
+```sh
+./gradlew runEx7Bob
+```
+
+#### 2: Start Node Alice
+
+In a separate terminal, run:
+
+```sh
+./gradlew runEx7Alice
+```

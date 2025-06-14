@@ -1,7 +1,4 @@
 # Example 5: Checking if other Nodes are connected to the Broker
-
-> **Note:** This example demonstrates the usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library in Java.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -9,8 +6,6 @@
 - [Example Overview](#example-overview)
 - [Expected Output](#expected-output)
 - [Running the example](#running-the-example)
-  - [Requirements](#requirements)
-  - [Execution steps](#execution-steps)
 
 ## Learning Objectives
 
@@ -21,9 +16,9 @@ This example shows how a node can:
 
 ## Involved Files
 
-- [`Ex_5_Alice.java`](./Ex_5_Alice.java): Node Alice logic for checking the connection status of other nodes and handling possible errors.
-- [`Ex_5_Bob.java`](./Ex_5_Bob.java): Node Bob logic (simply connects to the Broker).
-- [`../Constants.java`](../Constants.java): Common constants (IDs, broker address).
+- Ex_5_Alice.java: Node Alice logic for checking the connection status of other nodes and handling possible errors.
+- Ex_5_Bob.java: Node Bob logic (simply connects to the Broker).
+- Constants.java: Common constants (IDs, broker address).
 
 ## Example Overview
 
@@ -46,19 +41,26 @@ Is Carol connected to the Broker: false
 ## Running the example
 ### Requirements
 - **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
-- **Crolang Broker**: You can choose one of the following options:
-   - **Docker**: Have Docker installed to quickly start the broker using a container.
-   - **Node.js**: Alternatively, you can clone the broker repository and run it using NodeJs. You can find the broker repository here: [crolang-p2p-broker](https://github.com/crolang-p2p/crolang-p2p-broker).
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
 ### Execution steps
-1. Run the CrolangP2P Broker, either by:  
-    1.A Using Docker  
-    1.B Using NodeJs
-2. In the project root, run:
-   ```sh
-   ./gradlew runEx5Bob
-   ```
-3. In a separate terminal, run:
-   ```sh
-   ./gradlew runEx5Alice
-   ```
+1. [Start Node Bob](#1-start-node-bob)
+2. [Start Node Alice](#2-start-node-alice)
+
+---
+
+#### 1: Start Node Bob
+
+In the project root, run:
+
+```sh
+./gradlew runEx5Bob
+```
+
+#### 2: Start Node Alice
+
+In a separate terminal, run:
+
+```sh
+./gradlew runEx5Alice
+```

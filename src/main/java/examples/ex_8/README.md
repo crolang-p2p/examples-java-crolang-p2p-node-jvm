@@ -1,7 +1,4 @@
 # Example 8: Sending Messages via WebSocket
-
-> **Note:** This example demonstrates the usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -9,8 +6,6 @@
 - [Example Overview](#example-overview)
 - [Expected Output](#expected-output)
 - [Running the example](#running-the-example)
-    - [Requirements](#requirements)
-    - [Execution steps](#execution-steps)
 
 ## Learning Objectives
 
@@ -21,9 +16,9 @@ This example shows how to:
 
 ## Involved Files
 
-- `Ex_8_Alice.java`: Alice's logic to send messages via WebSocket and handle errors.
-- `Ex_8_Bob.java`: Bob's logic to receive and print messages from the WebSocket.
-- `Constants.java`: Common constants (IDs, broker address).
+- Ex_8_Alice.java: Alice's logic to send messages via WebSocket and handle errors.
+- Ex_8_Bob.java: Bob's logic to receive and print messages from the WebSocket.
+- Constants.java: Common constants (IDs, broker address).
 
 ## Example Overview
 
@@ -47,58 +42,28 @@ If an error occurs while Alice is sending a message (for example, if she tries t
 This demonstrates that Alice can send messages to Bob directly via the WebSocket connection to the Broker, and Bob receives and prints them accordingly. Error handling ensures that issues are reported clearly.
 
 ## Running the example
-
 ### Requirements
-
-- Java 11 or higher
-- Crolang Broker running (see previous examples for instructions)
+- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
 ### Execution steps
+1. [Start Node Bob](#1-start-node-bob)
+2. [Start Node Alice](#2-start-node-alice)
 
-#### 1. Start the CrolangP2P Broker
+---
 
-You can start the Broker using either Docker or Node.js:
+#### 1: Start Node Bob
 
-**A. Using Docker:**
-
-```sh
-docker run --rm --name CrolangP2PBroker -p 8080:8080 crolangp2p/broker
-```
-
-**B. Using Node.js:**
-
-1. Clone the broker repository:
-   ```sh
-   git clone https://github.com/crolang-p2p/crolang-p2p-broker.git
-   cd crolang-p2p-broker
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   ```
-3. Build:
-   ```sh
-   npm run build
-   ```
-4. Start the broker:
-   ```sh
-   npm start
-   ```
-
-#### 2. Start Node Bob
-
-From the root of the example project, run:
+In the project root, run:
 
 ```sh
 ./gradlew runEx8Bob
 ```
 
-#### 3. Start Node Alice
+#### 2: Start Node Alice
 
-In another terminal, run:
+In a separate terminal, run:
 
 ```sh
 ./gradlew runEx8Alice
 ```
-
-Observe the output to see messages received by Bob via both P2P and WebSocket channels.

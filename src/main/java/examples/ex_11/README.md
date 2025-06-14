@@ -1,7 +1,4 @@
 # Example 11: Customizing Local Node Behavior with BrokerConnectionAdditionalParameters
-
-> **Note:** This example demonstrates advanced customization of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library.
-
 ## Table of Contents
 
 - [Learning Objectives](#learning-objectives)
@@ -10,8 +7,6 @@
 - [Parameter Details](#parameter-details)
 - [Expected Output](#expected-output)
 - [Running the Example](#running-the-example)
-    - [Requirements](#requirements)
-    - [Execution Steps](#execution-steps)
 
 ## Learning Objectives
 
@@ -23,8 +18,8 @@ This example shows how to:
 
 ## Involved Files
 
-- `Ex_11_Alice.java`: Alice connects to the Broker with custom parameters for logging, lifecycle callbacks, and connection settings.
-- `Constants.java`: Common constants (IDs, broker address).
+- Ex_11_Alice.java: Alice connects to the Broker with custom parameters for logging, lifecycle callbacks, and connection settings.
+- Constants.java: Common constants (IDs, broker address).
 
 ## Example Overview
 
@@ -66,34 +61,20 @@ Failed to connect to Broker: <error>
 
 The actual output will include detailed logs and lifecycle event messages, reflecting the custom configuration.
 
-## Running the Example
-
+## Running the example
 ### Requirements
+- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
-- Java 11 or higher
-- Crolang Broker running
+### Execution steps
+1. [Start Node Alice](#1-start-node-alice)
 
-### Execution Steps
+---
 
-1. **Start the CrolangP2P Broker**
+#### 1: Start Node Alice
 
-   You can start the Broker using either Docker or Node.js:
+In the project root, run:
 
-   **A. Using Docker:**
-   ```sh
-   docker run --rm --name CrolangP2PBroker -p 8080:8080 crolangp2p/broker
-   ```
-
-   **B. Using Node.js:**
-   ```sh
-   git clone https://github.com/crolang-p2p/crolang-p2p-broker.git
-   cd crolang-p2p-broker
-   npm install
-   npm run build
-   npm start
-   ```
-
-2. **Start Node Alice**
-   ```sh
-   ./gradlew runEx11Alice
-   ```
+```sh
+./gradlew runEx11Alice
+```
