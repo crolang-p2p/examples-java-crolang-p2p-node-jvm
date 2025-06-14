@@ -9,7 +9,8 @@ import org.crolangP2P.exceptions.ConnectToBrokerException;
 
 public class Ex_3_Bob {
 
-    static boolean isConnectionAttemptAuthorized(String id) {
+    static boolean isConnectionAttemptAuthorized(String id, String platform, String version) {
+        System.out.println("Connection attempt from Node " + id + " on platform " + platform + " with version " + version);
         return id.equals(Constants.ALICE_ID);
     }
 
