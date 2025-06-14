@@ -20,6 +20,7 @@ public class Ex_1_Bob {
 
         CrolangP2P.Java.allowIncomingConnections(
                 new IncomingCrolangNodesCallbacks.Builder()
+                        .onConnectionSuccess(node -> System.out.println("Connected successfully to Node " + node.getId() + ", platform: " + node.getPlatform() + ", version: " + node.getVersion()))
                         .onNewMsg(onNewMsgHandlers)
                         .build()
         );

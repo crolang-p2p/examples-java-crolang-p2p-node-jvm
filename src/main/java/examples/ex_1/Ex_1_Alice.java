@@ -1,6 +1,7 @@
 package examples.ex_1;
 
 import examples.Constants;
+import org.crolangP2P.CrolangNode;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.SyncCrolangNodeCallbacks;
@@ -19,15 +20,14 @@ public class Ex_1_Alice {
                 })
                 .build();
 
-        CrolangP2P.Java.connectToSingleNodeSync(
+        CrolangNode node = CrolangP2P.Java.connectToSingleNodeSync(
                 Constants.BOB_ID,
                 SyncCrolangNodeCallbacks.builder()
                         .onNewMsg(onNewMsgHandlers)
                         .build()
         );
-        System.out.println("Connected to Node " + Constants.BOB_ID);
-        CrolangP2P.Java.getConnectedNode(Constants.BOB_ID).ifPresent(node ->
-                node.send("GREETINGS_CHANNEL", "Hello from Node " + Constants.ALICE_ID)
-        );
+        System.out.println("Connected successfully to Node " + node.getId() + ", platform: " + node.getPlatform() + ", version: " + node.getVersion());
+
+        node.send("GREETINGS_CHANNEL", "Hello from Node " + Constants.ALICE_ID);
     }
 }
