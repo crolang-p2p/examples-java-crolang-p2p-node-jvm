@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.crolang-p2p:crolang-p2p-node-jvm:0.1.14-alpha")
+    implementation("io.github.crolang-p2p:crolang-p2p-node-jvm:0.1.0-beta")
     implementation("com.google.code.gson:gson:2.10.1")
 }
 
