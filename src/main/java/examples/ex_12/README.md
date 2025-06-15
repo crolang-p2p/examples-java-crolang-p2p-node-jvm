@@ -43,6 +43,7 @@ This example shows how to:
 
 ### Prerequisites
 - Java 11 or higher
+**Note:** If you are using linux on an aarch32 or aarch64 architecture, please do not use java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
 - [Docker](https://www.docker.com/) installed
 
 ### Steps

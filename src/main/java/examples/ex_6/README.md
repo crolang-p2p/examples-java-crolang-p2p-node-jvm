@@ -50,6 +50,9 @@ Received a message on GREETINGS_CHANNEL from Node Alice: Hello Carol!
 ## Running the example
 ### Requirements
 - **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
+
+**Note:** If you are using linux on an aarch32 or aarch64 architecture, please do not use java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
+
 - **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
 
 ### Execution steps
