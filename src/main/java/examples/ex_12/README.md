@@ -40,13 +40,6 @@ This example shows how to:
 > For more details on how to configure and link extensions to the broker, see the [CrolangP2P Broker documentation](https://github.com/crolang-p2p/crolang-p2p-broker). This example assumes the broker is already configured to use the authentication extension via the `NODES_AUTHENTICATION_WEBHOOK_URL` environment variable in the provided `docker-compose.yml`.
 
 ## Running the Example
-
-### Prerequisites
-- Java 11 or higher
-**Note:** If you are using linux on an aarch32 or aarch64 architecture, please do not use java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
-- [Docker](https://www.docker.com/) installed
-
-### Steps
 1. **Start the system** (from the `ex_12` directory):
    ```sh
    docker compose up --build

@@ -36,18 +36,7 @@ In this scenario, Alice attempts to connect to the [CrolangP2P Broker](https://g
 This example demonstrates the importance of the [Broker](https://github.com/crolang-p2p/crolang-p2p-broker) in the CrolangP2P architecture and shows how to robustly handle the connection process in your node implementation. For further documentation, refer to the broker repository.
 
 ## Running the example
-### Requirements
-- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
-- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
-
-**Note:** If you are using Linux on an aarch32 or aarch64 architecture, please do not use Java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
-
-### Execution steps
-1. [Start Node Alice](#1-start-node-alice)
-
----
-
-#### 1: Start Node Alice
+### 1: Start Node Alice
 
 In the project root, run:
 

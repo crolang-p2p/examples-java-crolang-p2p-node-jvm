@@ -50,19 +50,7 @@ Bob: Received 997865700 bytes of data on LARGE_DATA_TRANSFER from Node Alice
 This demonstrates that CrolangP2P can handle the transfer of very large messages, overcoming the typical size limits of WebRTC. However, the actual limit is determined by the available memory on your machine.
 
 ## Running the example
-### Requirements
-- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
-- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
-
-**Note:** If you are using linux on an aarch32 or aarch64 architecture, please do not use java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
-
-### Execution steps
-1. [Start Node Bob](#1-start-node-bob)
-2. [Start Node Alice](#2-start-node-alice)
-
----
-
-#### 1: Start Node Bob
+### 1: Start Node Bob
 
 In the project root, run:
 
@@ -70,7 +58,7 @@ In the project root, run:
 ./gradlew runEx10Bob
 ```
 
-#### 2: Start Node Alice
+### 2: Start Node Alice
 
 In a separate terminal, run:
 

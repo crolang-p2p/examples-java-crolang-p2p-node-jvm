@@ -49,14 +49,6 @@ Alice: [REDIRECT_TO_ALICE][Bob]: Hello Alice, I'm Node Carol, this message was r
 This demonstrates that all nodes can act as both initiators and receivers of P2P connections, highlighting the peer-to-peer nature of the framework.
 
 ## Running the example
-### Requirements
-- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
-- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
-
-**Note:** If you are using Linux on an aarch32 or aarch64 architecture, please do not use Java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
-
-### Execution steps
-
 1. **Start Bob and Carol**
     - In two separate terminals, from the root of the example project, run:
       ```sh

@@ -54,19 +54,7 @@ Disconnected from Node Alice
 This demonstrates that after both nodes disconnect from the Broker, they continue to exchange messages over the P2P channel until the counter threshold is reached and the P2P connection is closed.
 
 ## Running the example
-### Requirements
-- **Java 11 or higher**: Make sure the command `java -version` returns at least version 11.
-- **Crolang Broker running**: Start the CrolangP2P Broker using one of the methods defined in the [project's general README](../../../../../README.md).
-
-**Note:** If you are using Linux on an aarch32 or aarch64 architecture, please do not use Java 21, as it is not supported by the JVM implementation used by this library. Use any other version of Java 11+ instead.
-
-### Execution steps
-1. [Start Node Bob](#1-start-node-bob)
-2. [Start Node Alice](#2-start-node-alice)
-
----
-
-#### 1: Start Node Bob
+### 1: Start Node Bob
 
 In the project root, run:
 
@@ -74,7 +62,7 @@ In the project root, run:
 ./gradlew runEx7Bob
 ```
 
-#### 2: Start Node Alice
+### 2: Start Node Alice
 
 In a separate terminal, run:
 
