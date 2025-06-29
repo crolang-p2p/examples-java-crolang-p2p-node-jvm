@@ -3,6 +3,7 @@ package examples.ex_6;
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.SyncCrolangNodeCallbacks;
+import org.crolangP2P.java.JavaSyncCrolangNodeCallbacks;
 import org.crolangP2P.CrolangNode;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 
@@ -15,8 +16,8 @@ public class Ex_6_Alice {
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
 
         Map<String, SyncCrolangNodeCallbacks> targets = new HashMap<>();
-        targets.put(Constants.BOB_ID, SyncCrolangNodeCallbacks.builder().build());
-        targets.put(Constants.CAROL_ID, SyncCrolangNodeCallbacks.builder().build());
+        targets.put(Constants.BOB_ID, JavaSyncCrolangNodeCallbacks.builder().build());
+        targets.put(Constants.CAROL_ID, JavaSyncCrolangNodeCallbacks.builder().build());
         CrolangP2P.Java.connectToMultipleNodesSync(targets);
 
         CrolangP2P.Java.getConnectedNode(Constants.BOB_ID).ifPresent(node -> {

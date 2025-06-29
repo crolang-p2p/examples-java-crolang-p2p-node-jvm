@@ -2,7 +2,7 @@ package examples.ex_3;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.SyncCrolangNodeCallbacks;
+import org.crolangP2P.java.JavaSyncCrolangNodeCallbacks;
 import org.crolangP2P.CrolangNode;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
@@ -12,7 +12,7 @@ public class Ex_3_Alice {
         CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.ALICE_ID);
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
 
-        var bobCallbacks = SyncCrolangNodeCallbacks.builder()
+        var bobCallbacks = JavaSyncCrolangNodeCallbacks.builder()
                 .onDisconnection(id -> {
                     System.out.println("Disconnected from Node " + id + " , trying to reconnect...");
                     try {

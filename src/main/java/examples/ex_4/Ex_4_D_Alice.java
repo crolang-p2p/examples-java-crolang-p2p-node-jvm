@@ -2,6 +2,7 @@ package examples.ex_4;
 
 import examples.Constants;
 import org.crolangP2P.AsyncCrolangNodeCallbacks;
+import org.crolangP2P.java.JavaAsyncCrolangNodeCallbacks;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
@@ -14,7 +15,7 @@ public class Ex_4_D_Alice {
         CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.ALICE_ID);
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
 
-        AsyncCrolangNodeCallbacks bobCallbacks = AsyncCrolangNodeCallbacks.builder()
+        AsyncCrolangNodeCallbacks bobCallbacks = JavaAsyncCrolangNodeCallbacks.builder()
             .onConnectionSuccess(node -> {
                 System.out.println("Connected to Node " + node.getId() + " successfully");
                 node.send("GREETING", "Hello there!");
@@ -30,7 +31,7 @@ public class Ex_4_D_Alice {
             )
             .build();
 
-        AsyncCrolangNodeCallbacks carolCallbacks = AsyncCrolangNodeCallbacks.builder()
+        AsyncCrolangNodeCallbacks carolCallbacks = JavaAsyncCrolangNodeCallbacks.builder()
                 .onConnectionSuccess(node -> {
                     System.out.println("Connected to Node " + node.getId() + " successfully");
                     node.send("GREETING", "Hello there!");

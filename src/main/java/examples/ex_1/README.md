@@ -8,7 +8,7 @@
 - [Running the example](#running-the-example)
 
 ## Learning Objectives
-This example demonstrates the basic usage of the [`crolang-p2p-node-jvm`](https://github.com/crolang-p2p/crolang-p2p-node-jvm) library to establish communication between two Crolang Nodes. 
+This example demonstrates the basic usage of the [`crolang-p2p-node`](https://github.com/crolang-p2p/crolang-p2p-node) library to establish communication between two Crolang Nodes. 
 
 Its main purpose is to give you a first look at what the project is about. The concepts shown here (such as the Broker, Node communication and message exchange) will be explored in more detail in the following examples.
 

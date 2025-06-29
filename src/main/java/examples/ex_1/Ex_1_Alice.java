@@ -4,7 +4,7 @@ import examples.Constants;
 import org.crolangP2P.CrolangNode;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
-import org.crolangP2P.SyncCrolangNodeCallbacks;
+import org.crolangP2P.java.JavaSyncCrolangNodeCallbacks;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
 
@@ -22,7 +22,7 @@ public class Ex_1_Alice {
 
         CrolangNode node = CrolangP2P.Java.connectToSingleNodeSync(
                 Constants.BOB_ID,
-                SyncCrolangNodeCallbacks.builder()
+                JavaSyncCrolangNodeCallbacks.builder()
                         .onNewMsg(onNewMsgHandlers)
                         .build()
         );

@@ -2,8 +2,8 @@ package examples.ex_9;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.IncomingCrolangNodesCallbacks;
-import org.crolangP2P.SyncCrolangNodeCallbacks;
+import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
+import org.crolangP2P.java.JavaSyncCrolangNodeCallbacks;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
@@ -22,7 +22,7 @@ public class Ex_9_Bob {
             .build();
 
         CrolangP2P.Java.allowIncomingConnections(
-            new IncomingCrolangNodesCallbacks.Builder()
+            JavaIncomingCrolangNodesCallbacks.builder()
                 .onConnectionSuccess(node ->
                     System.out.println("Connected successfully to Node " + node.getId())
                 )
@@ -46,7 +46,7 @@ public class Ex_9_Bob {
 
             CrolangP2P.Java.connectToSingleNodeSync(
                 Constants.CAROL_ID,
-                new SyncCrolangNodeCallbacks.Builder()
+                JavaSyncCrolangNodeCallbacks.builder()
                     .onNewMsg(onNewMsgHandlers)
                     .build()
             );

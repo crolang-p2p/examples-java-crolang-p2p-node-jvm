@@ -2,7 +2,7 @@ package examples.ex_10;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.IncomingCrolangNodesCallbacks;
+import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 
@@ -23,7 +23,7 @@ public class Ex_10_Bob {
             .build();
 
         CrolangP2P.Java.allowIncomingConnections(
-            new IncomingCrolangNodesCallbacks.Builder()
+            JavaIncomingCrolangNodesCallbacks.builder()
                 .onConnectionSuccess(node -> {
                     startTime = System.currentTimeMillis();
                     System.out.println("Connected to Node " + node.getId() + " successfully, waiting for large data transfer...");

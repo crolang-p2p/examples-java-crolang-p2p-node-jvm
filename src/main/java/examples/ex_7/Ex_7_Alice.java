@@ -4,6 +4,7 @@ import examples.Constants;
 import org.crolangP2P.CrolangP2P;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.SyncCrolangNodeCallbacks;
+import org.crolangP2P.java.JavaSyncCrolangNodeCallbacks;
 import org.crolangP2P.CrolangNode;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
@@ -15,7 +16,7 @@ public class Ex_7_Alice {
         CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.ALICE_ID);
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
 
-        SyncCrolangNodeCallbacks callbacks = SyncCrolangNodeCallbacks.builder()
+        SyncCrolangNodeCallbacks callbacks = JavaSyncCrolangNodeCallbacks.builder()
                 .onDisconnection(id -> System.out.println("Disconnected from Node " + id))
                 .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
                         .add("COUNT_CHANNEL", (node, msg) -> {

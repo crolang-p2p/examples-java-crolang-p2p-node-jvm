@@ -2,7 +2,7 @@ package examples.ex_1;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.IncomingCrolangNodesCallbacks;
+import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 
@@ -19,7 +19,7 @@ public class Ex_1_Bob {
                 .build();
 
         CrolangP2P.Java.allowIncomingConnections(
-                new IncomingCrolangNodesCallbacks.Builder()
+                JavaIncomingCrolangNodesCallbacks.builder()
                         .onConnectionSuccess(node -> System.out.println("Connected successfully to Node " + node.getId() + ", platform: " + node.getPlatform() + ", version: " + node.getVersion()))
                         .onNewMsg(onNewMsgHandlers)
                         .build()

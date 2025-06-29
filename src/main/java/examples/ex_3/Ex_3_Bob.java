@@ -2,7 +2,7 @@ package examples.ex_3;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.IncomingCrolangNodesCallbacks;
+import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.exceptions.ConnectToBrokerException;
 
@@ -18,7 +18,7 @@ public class Ex_3_Bob {
         CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.BOB_ID);
         System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
 
-        var incomingCrolangNodesCallbacks = new IncomingCrolangNodesCallbacks.Builder()
+        var incomingCrolangNodesCallbacks = JavaIncomingCrolangNodesCallbacks.builder()
             .onConnectionAttempt(Ex_3_Bob::isConnectionAttemptAuthorized)
             .onConnectionSuccess(node -> System.out.println("Connected successfully to Node " + node.getId()))
             .onConnectionFailed((id, reason) -> System.out.println("Failed to connect to Node " + id + ": " + reason))

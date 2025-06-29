@@ -1,5 +1,5 @@
 # examples-java-crolang-p2p-node-jvm
-Repository containing examples on how to use the [CrolangP2P library in a JVM (Java) environment](https://github.com/crolang-p2p/crolang-p2p-node-jvm) for the [CrolangP2P project](https://github.com/crolang-p2p).
+Repository containing examples on how to use the [CrolangP2P library in a JVM (Java) environment](https://github.com/crolang-p2p/crolang-p2p-node) for the [CrolangP2P project](https://github.com/crolang-p2p).
 
 ## Table of Contents
 - [Java Examples Introduction](#java-examples-introduction)
@@ -11,7 +11,7 @@ Repository containing examples on how to use the [CrolangP2P library in a JVM (J
    - [Starting the CrolangP2P Broker](#starting-the-crolangp2p-broker)
 
 ## Java Examples Introduction
-This repository contains a collection of practical examples demonstrating how to use the [CrolangP2P](https://github.com/crolang-p2p) library in a JVM (Java) environment. The official Java/JVM implementation is available here: [crolang-p2p-node-jvm](https://github.com/crolang-p2p/crolang-p2p-node-jvm).
+This repository contains a collection of practical examples demonstrating how to use the [CrolangP2P](https://github.com/crolang-p2p) library in a JVM (Java) environment. The official Java/JVM implementation is available here: [crolang-p2p-node](https://github.com/crolang-p2p/crolang-p2p-node).
 
 Each example is designed to illustrate a specific use case, ranging from basic node communication to advanced features such as authentication, connection management, and large data transfers.
 
