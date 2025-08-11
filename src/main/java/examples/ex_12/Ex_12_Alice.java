@@ -2,8 +2,7 @@ package examples.ex_12;
 
 import com.google.gson.Gson;
 import examples.Constants;
-import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.exceptions.ConnectToBrokerException;
+import org.crolangP2P.CrolangP2PJvm;
 
 public class Ex_12_Alice {
 
@@ -27,13 +26,13 @@ public class Ex_12_Alice {
 
     }
 
-    public static void main(String[] args) throws ConnectToBrokerException {
-        CrolangP2P.Java.connectToBroker(
+    public static void main(String[] args) {
+        CrolangP2PJvm.Java.connectToBroker(
                 Constants.BROKER_ADDR,
                 Constants.ALICE_ID,
+                () -> System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID),
+                err -> System.out.println("Failed to connect to Broker: " + err),
                 new Gson().toJson(new Authentication("magic-token", "unicorns"))
         );
-
-        System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
     }
 }

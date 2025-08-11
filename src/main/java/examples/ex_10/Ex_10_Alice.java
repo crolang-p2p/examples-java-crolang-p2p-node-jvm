@@ -1,16 +1,16 @@
 package examples.ex_10;
 
 import examples.Constants;
-import org.crolangP2P.CrolangP2P;
-import org.crolangP2P.exceptions.ConnectToBrokerException;
-import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
+import org.crolangP2P.CrolangP2PJvm;
+import org.crolangP2P.java.JavaOutgoingCrolangNodeCallbacks;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.Objects;
 
 public class Ex_10_Alice {
-    public static void main(String[] args) throws IOException, ConnectionToNodeFailedReasonException, ConnectToBrokerException {
+    public static void main(String[] args) throws IOException {
         String resourcePath = "/large_file.txt"; // ~100 MB file in resources
         System.out.println("Reading large file...");
         String content;
@@ -29,12 +29,24 @@ public class Ex_10_Alice {
         toSend.append(content.repeat(10));
 
         System.out.println("Bytes to send: " + toSend.toString().getBytes().length);
-        CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.ALICE_ID);
-        System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
-        var node = CrolangP2P.Java.connectToSingleNodeSync(Constants.BOB_ID);
-        System.out.println("Connected to Node " + node.getId() + " successfully");
-        System.out.println("Sending large data to Node " + node.getId() + "...");
-        var sendResult = node.send("LARGE_DATA_TRANSFER", toSend.toString());
-        System.out.println("Data sent result: " + sendResult);
+        CrolangP2PJvm.Java.connectToBroker(
+                Constants.BROKER_ADDR,
+                Constants.ALICE_ID,
+                () -> {
+                    System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
+                    CrolangP2PJvm.Java.connectToSingleNode(
+                            Constants.BOB_ID,
+                            JavaOutgoingCrolangNodeCallbacks.builder()
+                                    .onConnectionSuccess(node -> {
+                                        System.out.println("Connected to Node " + node.getId() + " successfully");
+                                        System.out.println("Sending large data to Node " + node.getId() + "...");
+                                        var sendResult = node.send("LARGE_DATA_TRANSFER", toSend.toString());
+                                        System.out.println("Data sent result: " + sendResult);
+                                    })
+                                    .build()
+                    );
+                },
+                err -> System.err.println("Failed to connect to broker: " + err)
+        );
     }
 }

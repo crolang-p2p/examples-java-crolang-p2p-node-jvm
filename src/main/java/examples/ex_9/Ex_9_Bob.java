@@ -1,58 +1,62 @@
 package examples.ex_9;
 
 import examples.Constants;
-import org.crolangP2P.CrolangP2P;
+import org.crolangP2P.CrolangP2PJvm;
 import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
-import org.crolangP2P.java.JavaSyncCrolangNodeCallbacks;
-import org.crolangP2P.exceptions.ConnectToBrokerException;
-import org.crolangP2P.exceptions.ConnectionToNodeFailedReasonException;
+import org.crolangP2P.java.JavaOutgoingCrolangNodeCallbacks;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 
 public class Ex_9_Bob {
-    public static void main(String[] args) throws ConnectToBrokerException {
-        CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.BOB_ID);
-        System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
+    public static void main(String[] args) {
+        CrolangP2PJvm.Java.connectToBroker(
+                Constants.BROKER_ADDR,
+                Constants.BOB_ID,
+                () -> {
+                    var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
+                            .add("CONNECT_TO_CAROL", (node, msg) -> {
+                                System.out.println("[CONNECT_TO_CAROL][" + node.getId() + "]");
+                                System.out.println("Connecting to Node " + Constants.CAROL_ID);
+                                connectToCarol();
+                            })
+                            .build();
 
-        var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
-            .add("CONNECT_TO_CAROL", (node, msg) -> {
-                System.out.println("[CONNECT_TO_CAROL][" + node.getId() + "]");
-                System.out.println("Connecting to Node " + Constants.CAROL_ID);
-                connectToCarol();
-            })
-            .build();
-
-        CrolangP2P.Java.allowIncomingConnections(
-            JavaIncomingCrolangNodesCallbacks.builder()
-                .onConnectionSuccess(node ->
-                    System.out.println("Connected successfully to Node " + node.getId())
-                )
-                .onNewMsg(onNewMsgHandlers)
-                .build()
+                    CrolangP2PJvm.Java.allowIncomingConnections(
+                            JavaIncomingCrolangNodesCallbacks.builder()
+                                    .onConnectionSuccess(node ->
+                                            System.out.println("Connected successfully to Node " + node.getId())
+                                    )
+                                    .onNewMsg(onNewMsgHandlers)
+                                    .build(),
+                            () -> System.out.println("Incoming connections are now allowed"),
+                            err -> System.err.println("Failed to allow incoming connections: " + err)
+                    );
+                },
+                err -> System.out.println("Failed to connect to Broker: " + err)
         );
+        System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
     }
 
     private static void connectToCarol() {
-        try {
-            var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
+        var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
                 .add("REDIRECT_TO_ALICE", (node, msg) -> {
                     System.out.println("[REDIRECT_TO_ALICE][" + node.getId() + "]: " + msg);
-                    CrolangP2P.Java.getConnectedNode(Constants.ALICE_ID).ifPresent(aliceNode -> {
-                        String newMsg = msg + ", this message was redirected by Node " + Constants.BOB_ID;
-                        System.out.println("Redirecting to Node " + Constants.ALICE_ID + ": " + newMsg);
-                        aliceNode.send("REDIRECT_TO_ALICE", newMsg);
-                    });
+                    CrolangP2PJvm.Java.getConnectedNode(
+                            Constants.ALICE_ID,
+                            aliceNode -> aliceNode.ifPresent(a -> {
+                                String newMsg = msg + ", this message was redirected by Node " + Constants.BOB_ID;
+                                System.out.println("Redirecting to Node " + Constants.ALICE_ID + ": " + newMsg);
+                                a.send("REDIRECT_TO_ALICE", newMsg);
+                            })
+                    );
                 })
                 .build();
 
-            CrolangP2P.Java.connectToSingleNodeSync(
+        CrolangP2PJvm.Java.connectToSingleNode(
                 Constants.CAROL_ID,
-                JavaSyncCrolangNodeCallbacks.builder()
-                    .onNewMsg(onNewMsgHandlers)
-                    .build()
-            );
-            System.out.println("Connected successfully to Node " + Constants.CAROL_ID);
-        } catch (ConnectionToNodeFailedReasonException e) {
-            System.err.println("Failed to connect to Carol: " + e.getMessage());
-        }
+                JavaOutgoingCrolangNodeCallbacks.builder()
+                        .onNewMsg(onNewMsgHandlers)
+                        .build()
+        );
+        System.out.println("Connected successfully to Node " + Constants.CAROL_ID);
     }
 }

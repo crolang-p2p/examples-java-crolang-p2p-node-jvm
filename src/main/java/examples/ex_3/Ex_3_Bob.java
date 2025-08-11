@@ -1,10 +1,9 @@
 package examples.ex_3;
 
 import examples.Constants;
-import org.crolangP2P.CrolangP2P;
+import org.crolangP2P.CrolangP2PJvm;
 import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
 import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
-import org.crolangP2P.exceptions.ConnectToBrokerException;
 
 
 public class Ex_3_Bob {
@@ -14,27 +13,43 @@ public class Ex_3_Bob {
         return id.equals(Constants.ALICE_ID);
     }
 
-    public static void main(String[] args) throws ConnectToBrokerException {
-        CrolangP2P.Java.connectToBroker(Constants.BROKER_ADDR, Constants.BOB_ID);
-        System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
+    public static void main(String[] args) {
+        CrolangP2PJvm.Java.connectToBroker(
+                Constants.BROKER_ADDR,
+                Constants.BOB_ID,
+                () -> {
+                    System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
 
-        var incomingCrolangNodesCallbacks = JavaIncomingCrolangNodesCallbacks.builder()
-            .onConnectionAttempt(Ex_3_Bob::isConnectionAttemptAuthorized)
-            .onConnectionSuccess(node -> System.out.println("Connected successfully to Node " + node.getId()))
-            .onConnectionFailed((id, reason) -> System.out.println("Failed to connect to Node " + id + ": " + reason))
-            .onDisconnection(id -> System.out.println("Disconnected from node " + id))
-            .onNewMsg(
-                OnNewP2PMsgHandlersBuilder.createNew()
-                    .add("CHANNEL_NUMBERS", (node, msg) -> System.out.println("Received on CHANNEL_NUMBERS from " + node.getId() + ": " + msg))
-                    .add("CHANNEL_DISCONNECT", (node, msg) -> {
-                        System.out.println("Received CHANNEL_DISCONNECT from " + node.getId() + ". Disconnecting...");
-                        node.disconnect();
-                    })
-                    .build()
-            )
-            .build();
+                    var incomingCrolangNodesCallbacks = JavaIncomingCrolangNodesCallbacks.builder()
+                            .onConnectionAttempt(Ex_3_Bob::isConnectionAttemptAuthorized)
+                            .onConnectionSuccess(node -> System.out.println("Connected successfully to Node " + node.getId()))
+                            .onConnectionFailed((id, reason) -> System.out.println("Failed to connect to Node " + id + ": " + reason))
+                            .onDisconnection(id -> System.out.println("Disconnected from node " + id))
+                            .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
+                                .add("CHANNEL_NUMBERS", (node, msg) -> System.out.println("Received on CHANNEL_NUMBERS from " + node.getId() + ": " + msg))
+                                .add("CHANNEL_DISCONNECT", (node, msg) -> {
+                                    System.out.println("Received CHANNEL_DISCONNECT from " + node.getId() + ". Disconnecting...");
+                                    CrolangP2PJvm.Java.stopIncomingConnections(() -> {
+                                        System.out.println("Stopped incoming connections");
+                                        CrolangP2PJvm.Java.areIncomingConnectionsAllowed(areIncomingConnectionsAllowed -> {
+                                            System.out.println("Are incoming connections allowed: " + areIncomingConnectionsAllowed);
+                                            System.out.println("Disconnecting from " + node.getId());
+                                            node.disconnect();
+                                        });
+                                    });
+                                })
+                                .build()
+                            )
+                            .build();
 
-        CrolangP2P.Java.allowIncomingConnections(incomingCrolangNodesCallbacks);
+                    CrolangP2PJvm.Java.allowIncomingConnections(
+                            incomingCrolangNodesCallbacks,
+                            () -> System.out.println("Incoming connections are now allowed"),
+                            error -> System.out.println("Error allowing incoming connections: " + error)
+                    );
+                },
+                error -> System.out.println("Error connecting to Broker: " + error)
+        );
     }
 
 }
