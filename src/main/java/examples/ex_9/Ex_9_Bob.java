@@ -2,9 +2,9 @@ package examples.ex_9;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
-import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
-import org.crolangP2P.java.JavaOutgoingCrolangNodeCallbacks;
-import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
+import org.crolangP2P.java.IncomingCrolangNodesCallbacksJava;
+import org.crolangP2P.java.OnNewP2PStringMsgHandlersBuilderJava;
+import org.crolangP2P.java.OutgoingCrolangNodeCallbacksJava;
 
 public class Ex_9_Bob {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class Ex_9_Bob {
                 Constants.BROKER_ADDR,
                 Constants.BOB_ID,
                 () -> {
-                    var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
+                    var onNewMsgHandlers = OnNewP2PStringMsgHandlersBuilderJava.createNew()
                             .add("CONNECT_TO_CAROL", (node, msg) -> {
                                 System.out.println("[CONNECT_TO_CAROL][" + node.getId() + "]");
                                 System.out.println("Connecting to Node " + Constants.CAROL_ID);
@@ -21,11 +21,11 @@ public class Ex_9_Bob {
                             .build();
 
                     CrolangP2PJvm.Java.allowIncomingConnections(
-                            JavaIncomingCrolangNodesCallbacks.builder()
+                            IncomingCrolangNodesCallbacksJava.builder()
                                     .onConnectionSuccess(node ->
                                             System.out.println("Connected successfully to Node " + node.getId())
                                     )
-                                    .onNewMsg(onNewMsgHandlers)
+                                    .onNewStringMsg(onNewMsgHandlers)
                                     .build(),
                             () -> System.out.println("Incoming connections are now allowed"),
                             err -> System.err.println("Failed to allow incoming connections: " + err)
@@ -37,7 +37,7 @@ public class Ex_9_Bob {
     }
 
     private static void connectToCarol() {
-        var onNewMsgHandlers = OnNewP2PMsgHandlersBuilder.createNew()
+        var onNewMsgHandlers = OnNewP2PStringMsgHandlersBuilderJava.createNew()
                 .add("REDIRECT_TO_ALICE", (node, msg) -> {
                     System.out.println("[REDIRECT_TO_ALICE][" + node.getId() + "]: " + msg);
                     CrolangP2PJvm.Java.getConnectedNode(
@@ -45,7 +45,7 @@ public class Ex_9_Bob {
                             aliceNode -> aliceNode.ifPresent(a -> {
                                 String newMsg = msg + ", this message was redirected by Node " + Constants.BOB_ID;
                                 System.out.println("Redirecting to Node " + Constants.ALICE_ID + ": " + newMsg);
-                                a.send("REDIRECT_TO_ALICE", newMsg);
+                                a.sendString("REDIRECT_TO_ALICE", newMsg);
                             })
                     );
                 })
@@ -53,8 +53,8 @@ public class Ex_9_Bob {
 
         CrolangP2PJvm.Java.connectToSingleNode(
                 Constants.CAROL_ID,
-                JavaOutgoingCrolangNodeCallbacks.builder()
-                        .onNewMsg(onNewMsgHandlers)
+                OutgoingCrolangNodeCallbacksJava.builder()
+                        .onNewStringMsg(onNewMsgHandlers)
                         .build()
         );
         System.out.println("Connected successfully to Node " + Constants.CAROL_ID);

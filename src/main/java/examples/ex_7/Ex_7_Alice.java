@@ -2,9 +2,9 @@ package examples.ex_7;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
-import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
 import org.crolangP2P.OutgoingCrolangNodeCallbacks;
-import org.crolangP2P.java.JavaOutgoingCrolangNodeCallbacks;
+import org.crolangP2P.java.OnNewP2PStringMsgHandlersBuilderJava;
+import org.crolangP2P.java.OutgoingCrolangNodeCallbacksJava;
 
 public class Ex_7_Alice {
     public static void main(String[] args) {
@@ -16,9 +16,9 @@ public class Ex_7_Alice {
                 () -> {
                     System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
 
-                    OutgoingCrolangNodeCallbacks callbacks = JavaOutgoingCrolangNodeCallbacks.builder()
+                    OutgoingCrolangNodeCallbacks callbacks = OutgoingCrolangNodeCallbacksJava.builder()
                             .onDisconnection(id -> System.out.println("Disconnected from Node " + id))
-                            .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
+                            .onNewStringMsg(OnNewP2PStringMsgHandlersBuilderJava.createNew()
                                     .add("COUNT_CHANNEL", (node, msg) -> {
                                         System.out.println("[COUNT_CHANNEL][" + node.getId() + "]: " + msg);
                                         int i = Integer.parseInt(msg);
@@ -26,7 +26,7 @@ public class Ex_7_Alice {
                                             System.out.println("Counter threshold exceeded, disconnecting from Node " + node.getId());
                                             node.disconnect();
                                         } else {
-                                            node.send("COUNT_CHANNEL", Integer.toString(i + 1));
+                                            node.sendString("COUNT_CHANNEL", Integer.toString(i + 1));
                                         }
                                     })
                                     .build()

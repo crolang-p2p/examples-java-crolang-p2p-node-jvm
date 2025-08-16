@@ -2,8 +2,8 @@ package examples.ex_3;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
-import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
-import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
+import org.crolangP2P.java.IncomingCrolangNodesCallbacksJava;
+import org.crolangP2P.java.OnNewP2PStringMsgHandlersBuilderJava;
 
 
 public class Ex_3_Bob {
@@ -20,12 +20,12 @@ public class Ex_3_Bob {
                 () -> {
                     System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
 
-                    var incomingCrolangNodesCallbacks = JavaIncomingCrolangNodesCallbacks.builder()
+                    var incomingCrolangNodesCallbacks = IncomingCrolangNodesCallbacksJava.builder()
                             .onConnectionAttempt(Ex_3_Bob::isConnectionAttemptAuthorized)
                             .onConnectionSuccess(node -> System.out.println("Connected successfully to Node " + node.getId()))
                             .onConnectionFailed((id, reason) -> System.out.println("Failed to connect to Node " + id + ": " + reason))
                             .onDisconnection(id -> System.out.println("Disconnected from node " + id))
-                            .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
+                            .onNewStringMsg(OnNewP2PStringMsgHandlersBuilderJava.createNew()
                                 .add("CHANNEL_NUMBERS", (node, msg) -> System.out.println("Received on CHANNEL_NUMBERS from " + node.getId() + ": " + msg))
                                 .add("CHANNEL_DISCONNECT", (node, msg) -> {
                                     System.out.println("Received CHANNEL_DISCONNECT from " + node.getId() + ". Disconnecting...");

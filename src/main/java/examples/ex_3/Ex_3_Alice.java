@@ -2,7 +2,7 @@ package examples.ex_3;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
-import org.crolangP2P.java.JavaOutgoingCrolangNodeCallbacks;
+import org.crolangP2P.java.OutgoingCrolangNodeCallbacksJava;
 
 public class Ex_3_Alice {
     public static void main(String[] args) {
@@ -12,12 +12,12 @@ public class Ex_3_Alice {
                 () -> {
                     System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
 
-                    CrolangP2PJvm.Java.connectToSingleNode(Constants.BOB_ID, JavaOutgoingCrolangNodeCallbacks.builder()
+                    CrolangP2PJvm.Java.connectToSingleNode(Constants.BOB_ID, OutgoingCrolangNodeCallbacksJava.builder()
                             .onDisconnection(id -> {
                                 System.out.println("Disconnected from Node " + id + " , trying to reconnect...");
                                 CrolangP2PJvm.Java.connectToSingleNode(
                                         Constants.BOB_ID,
-                                        JavaOutgoingCrolangNodeCallbacks.builder()
+                                        OutgoingCrolangNodeCallbacksJava.builder()
                                                 .onConnectionSuccess(secondAttemptNode -> System.out.println("Connected successfully to Node " + secondAttemptNode.getId()))
                                                 .onConnectionFailed((connectionFailedId, err) -> System.out.println("Error connecting to Node " + connectionFailedId + ": " + err))
                                                 .build()
@@ -25,8 +25,8 @@ public class Ex_3_Alice {
                             })
                             .onConnectionSuccess(node -> {
                                 System.out.println("Connected successfully to Node " + node.getId());
-                                node.send("CHANNEL_NUMBERS", "42");
-                                node.send("CHANNEL_DISCONNECT");
+                                node.sendString("CHANNEL_NUMBERS", "42");
+                                node.sendString("CHANNEL_DISCONNECT", "");
                             })
                             .build());
                 },

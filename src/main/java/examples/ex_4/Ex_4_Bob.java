@@ -2,8 +2,8 @@ package examples.ex_4;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
-import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
-import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
+import org.crolangP2P.java.IncomingCrolangNodesCallbacksJava;
+import org.crolangP2P.java.OnNewP2PStringMsgHandlersBuilderJava;
 
 public class Ex_4_Bob {
     public static void main(String[] args) {
@@ -13,13 +13,13 @@ public class Ex_4_Bob {
                 () -> {
                     System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.BOB_ID);
                     CrolangP2PJvm.Java.allowIncomingConnections(
-                            JavaIncomingCrolangNodesCallbacks.builder()
+                            IncomingCrolangNodesCallbacksJava.builder()
                                 .onConnectionSuccess(node -> {
                                     System.out.println("Connected to Node " + node.getId() + " successfully");
-                                    node.send("CHANNEL_LETTERS", "ABC");
-                                    node.send("CHANNEL_NUMBERS", "42");
+                                    node.sendString("CHANNEL_LETTERS", "ABC");
+                                    node.sendString("CHANNEL_NUMBERS", "42");
                                 })
-                                .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
+                                .onNewStringMsg(OnNewP2PStringMsgHandlersBuilderJava.createNew()
                                         .add("GREETINGS_CHANNEL", (node, msg) -> {
                                             System.out.println("Received a message on GREETINGS_CHANNEL from Node " + node.getId() + ": " + msg);
                                         })

@@ -2,10 +2,10 @@ package examples.ex_11;
 
 import examples.Constants;
 import org.crolangP2P.*;
-import org.crolangP2P.java.JavaBrokerConnectionAdditionalParameters;
-import org.crolangP2P.java.JavaLoggingOptions;
-import org.crolangP2P.java.JavaBrokerLifecycleCallbacks;
-import org.crolangP2P.java.JavaCrolangSettings;
+import org.crolangP2P.java.BrokerConnectionAdditionalParametersJava;
+import org.crolangP2P.java.BrokerLifecycleCallbacksJava;
+import org.crolangP2P.java.CrolangSettingsJava;
+import org.crolangP2P.java.LoggingOptionsJava;
 
 import java.util.Optional;
 
@@ -16,19 +16,19 @@ public class Ex_11_Alice {
                 Constants.ALICE_ID,
                 () -> System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID),
                 err -> System.out.println("Failed to connect to Broker: " + err),
-                JavaBrokerConnectionAdditionalParameters.builder()
-                    .logging(JavaLoggingOptions.builder()
+                BrokerConnectionAdditionalParametersJava.builder()
+                    .logging(LoggingOptionsJava.builder()
                         .enableBaseLogging(true) //DEFAULT: false
                         .enableDebugLogging(true) //DEFAULT: false
                         .build()
                     )
-                    .lifecycleCallbacks(JavaBrokerLifecycleCallbacks.builder()
+                    .lifecycleCallbacks(BrokerLifecycleCallbacksJava.builder()
                         .onInvoluntaryDisconnection(cause -> System.out.println("Involuntary disconnection from Broker: " + cause)) //DEFAULT: does nothing
                         .onReconnectionAttempt(() -> System.out.println("Attempting to reconnect to Broker")) //DEFAULT: does nothing
                         .onSuccessfullyReconnected(() -> System.out.println("Successfully reconnected to Broker")) //DEFAULT: does nothing
                         .build()
                     )
-                    .settings(JavaCrolangSettings.builder()
+                    .settings(CrolangSettingsJava.builder()
                         .p2pConnectionTimeoutMillis(5000) //DEFAULT: 30000
                         .multipartP2PMessageTimeoutMillis(1000) //DEFAULT: 60000
                         .reconnection(true) //DEFAULT: true

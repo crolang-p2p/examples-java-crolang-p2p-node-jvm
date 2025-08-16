@@ -3,8 +3,8 @@ package examples.ex_6;
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
 import org.crolangP2P.IncomingCrolangNodesCallbacks;
-import org.crolangP2P.java.JavaIncomingCrolangNodesCallbacks;
-import org.crolangP2P.OnNewP2PMsgHandlersBuilder;
+import org.crolangP2P.java.IncomingCrolangNodesCallbacksJava;
+import org.crolangP2P.java.OnNewP2PStringMsgHandlersBuilderJava;
 
 public class Ex_6_Carol {
     public static void main(String[] args) {
@@ -14,8 +14,8 @@ public class Ex_6_Carol {
                 () -> {
                     System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.CAROL_ID);
 
-                    IncomingCrolangNodesCallbacks callbacks = JavaIncomingCrolangNodesCallbacks.builder()
-                            .onNewMsg(OnNewP2PMsgHandlersBuilder.createNew()
+                    IncomingCrolangNodesCallbacks callbacks = IncomingCrolangNodesCallbacksJava.builder()
+                            .onNewStringMsg(OnNewP2PStringMsgHandlersBuilderJava.createNew()
                                     .add("GREETINGS_CHANNEL", (node, msg) -> System.out.println("Received a message on GREETINGS_CHANNEL from Node " + node.getId() + ": " + msg))
                                     .build()
                             ).build();

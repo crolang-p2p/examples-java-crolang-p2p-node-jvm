@@ -2,7 +2,7 @@ package examples.ex_10;
 
 import examples.Constants;
 import org.crolangP2P.CrolangP2PJvm;
-import org.crolangP2P.java.JavaOutgoingCrolangNodeCallbacks;
+import org.crolangP2P.java.OutgoingCrolangNodeCallbacksJava;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,7 +13,7 @@ public class Ex_10_Alice {
     public static void main(String[] args) throws IOException {
         String resourcePath = "/large_file.txt"; // ~100 MB file in resources
         System.out.println("Reading large file...");
-        String content;
+        byte[] content;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 Objects.requireNonNull(Ex_10_Alice.class.getResourceAsStream(resourcePath))
         ))) {
@@ -22,13 +22,16 @@ public class Ex_10_Alice {
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
-            content = sb.toString();
+            content = sb.toString().getBytes();
         }
-        System.out.println("File read successfully. Bytes: " + content.getBytes().length);
-        StringBuilder toSend = new StringBuilder();
-        toSend.append(content.repeat(10));
+        System.out.println("File read successfully. Bytes: " + content.length);
 
-        System.out.println("Bytes to send: " + toSend.toString().getBytes().length);
+        byte[] toSend = new byte[content.length * 10];
+        for (int i = 0; i < 10; i++) {
+            System.arraycopy(content, 0, toSend, i * content.length, content.length);
+        }
+
+        System.out.println("Bytes to send: " + toSend.length);
         CrolangP2PJvm.Java.connectToBroker(
                 Constants.BROKER_ADDR,
                 Constants.ALICE_ID,
@@ -36,11 +39,11 @@ public class Ex_10_Alice {
                     System.out.println("Connected to Broker at " + Constants.BROKER_ADDR + " as " + Constants.ALICE_ID);
                     CrolangP2PJvm.Java.connectToSingleNode(
                             Constants.BOB_ID,
-                            JavaOutgoingCrolangNodeCallbacks.builder()
+                            OutgoingCrolangNodeCallbacksJava.builder()
                                     .onConnectionSuccess(node -> {
                                         System.out.println("Connected to Node " + node.getId() + " successfully");
                                         System.out.println("Sending large data to Node " + node.getId() + "...");
-                                        var sendResult = node.send("LARGE_DATA_TRANSFER", toSend.toString());
+                                        var sendResult = node.sendBytes("LARGE_DATA_TRANSFER", toSend);
                                         System.out.println("Data sent result: " + sendResult);
                                     })
                                     .build()
